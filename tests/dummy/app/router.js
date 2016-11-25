@@ -7,6 +7,11 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('foo');
+  this.route('foo-new-version');
+
+  this.route('bar');
+  this.route('bar-new-version');
 });
 
 export default Router;
