@@ -1,6 +1,6 @@
 {
   "name": "ember-new-version-detection",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Our snazzy add-on for checking if a new version of your app is available",
   "directories": {
     "doc": "doc",
