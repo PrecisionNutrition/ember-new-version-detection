@@ -22,12 +22,12 @@ export default Mixin.create({
   newVersionDetector: service(),
 
   headers: computed('newVersionDetector.reportedVersion', function() {
-    let reportedVersion = this.get('newVersionDetector.reportedVersion');
+    let headers = this._super(...arguments) || {};
 
-    return {
-      'X-App-Version': reportedVersion,
-      'X-App-Name': appName,
-    };
+    headers['X-App-Version'] = this.get('newVersionDetector.reportedVersion');
+    headers['X-App-Name'] = appName;
+
+    return headers;
   }),
 
   handleResponse(_, headers) {
