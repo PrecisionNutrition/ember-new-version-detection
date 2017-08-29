@@ -18,6 +18,10 @@ const {
   Mixin,
 } = Ember;
 
+function fetchHeader(header, headers) {
+  return headers[header] || headers[header.toLowerCase()];
+}
+
 export default Mixin.create({
   newVersionDetector: service(),
 
@@ -32,7 +36,7 @@ export default Mixin.create({
 
   handleResponse(_, headers) {
     runNext(this, function() {
-      this.set('newVersionDetector.activeVersion', headers['X-Current-Version']);
+      this.set('newVersionDetector.activeVersion', fetchHeader('X-Current-Version', headers));
     });
 
     return this._super(...arguments);
