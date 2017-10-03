@@ -8,7 +8,7 @@ const {
 
 const {
   APP: {
-    version,
+    _appVersion: version,
   }
 } = config;
 
