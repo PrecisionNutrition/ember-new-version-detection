@@ -1,5 +1,6 @@
-import { test } from 'qunit';
-import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+import { visit } from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
 import Pretender from 'pretender';
 import env from '../../config/environment';
 
@@ -7,8 +8,10 @@ let server;
 let headers;
 let responseBody;
 
-moduleForAcceptance('Acceptance | detecting a new version', {
-  beforeEach() {
+module('Acceptance | detecting a new version', function(hooks) {
+  setupApplicationTest(hooks);
+
+  hooks.beforeEach(function() {
     headers = {
       'Content-Type': 'application/json',
     };
@@ -21,9 +24,9 @@ moduleForAcceptance('Acceptance | detecting a new version', {
         },
       ],
     });
-  },
+  });
 
-  afterEach() {
+  hooks.afterEach(function() {
     headers = null;
 
     responseBody = null;
@@ -31,111 +34,95 @@ moduleForAcceptance('Acceptance | detecting a new version', {
     server.shutdown();
 
     server = null;
-  },
-});
+  });
 
-test('via the ember-data adapter', function(assert) {
-  server = new Pretender(function() {
-    this.get('/foos', function(req) {
-      let {
-        requestHeaders,
-      } = req;
+  test('via the ember-data adapter', async function(assert) {
+    server = new Pretender(function() {
+      this.get('/foos', function(req) {
+        let {
+          requestHeaders,
+        } = req;
 
-      assert.equal(
-        requestHeaders['X-App-Name'],
-        env['ember-new-version-detection'].appName,
-        'reports the app name to the server'
-      );
+        assert.equal(
+          requestHeaders['X-App-Name'],
+          env['ember-new-version-detection'].appName,
+          'reports the app name to the server'
+        );
 
-      assert.ok(
-        'X-App-Version' in requestHeaders,
-        'reports the app version to the server'
-      );
+        assert.ok(
+          'X-App-Version' in requestHeaders,
+          'reports the app version to the server'
+        );
 
-      return [
-        200,
-        headers,
-        responseBody
-      ];
+        return [
+          200,
+          headers,
+          responseBody
+        ];
+      });
+
+      this.get('/foos/1', function() {
+        headers['X-Current-Version'] = '26716999';
+
+        return [
+          200,
+          headers,
+          responseBody
+        ];
+      });
     });
 
-    this.get('/foos/1', function() {
-      headers['X-Current-Version'] = '26716999';
+    await visit('/foo');
 
-      return [
-        200,
-        headers,
-        responseBody
-      ];
-    });
+    assert.dom('#alert').doesNotExist('does not signal new version when not available');
+
+    await visit('/foo-new-version');
+
+    assert.dom('#alert').exists('detects a new version is available');
   });
 
-  visit('/foo');
+  test('via the ember-ajax service', async function(assert) {
+    server = new Pretender(function() {
+      this.get('/foos', function(req) {
+        let {
+          requestHeaders,
+        } = req;
 
-  andThen(function() {
-    let alertBox = find('#alert');
+        assert.equal(
+          requestHeaders['X-App-Name'],
+          env['ember-new-version-detection'].appName,
+          'reports the app name to the server'
+        );
 
-    assert.notOk(alertBox.length, 'does not signal new version when not available');
+        assert.ok(
+          'X-App-Version' in requestHeaders,
+          'reports the app version to the server'
+        );
 
-    visit('/foo-new-version');
-  });
+        return [
+          200,
+          headers,
+          responseBody
+        ];
+      });
 
-  andThen(function() {
-    let alertBox = find('#alert');
+      this.get('/foos/1', function() {
+        headers['X-Current-Version'] = '26716999';
 
-    assert.ok(alertBox.length, 'detects a new version is available');
-  });
-});
-
-test('via the ember-ajax service', function(assert) {
-  server = new Pretender(function() {
-    this.get('/foos', function(req) {
-      let {
-        requestHeaders,
-      } = req;
-
-      assert.equal(
-        requestHeaders['X-App-Name'],
-        env['ember-new-version-detection'].appName,
-        'reports the app name to the server'
-      );
-
-      assert.ok(
-        'X-App-Version' in requestHeaders,
-        'reports the app version to the server'
-      );
-
-      return [
-        200,
-        headers,
-        responseBody
-      ];
+        return [
+          200,
+          headers,
+          responseBody
+        ];
+      });
     });
 
-    this.get('/foos/1', function() {
-      headers['X-Current-Version'] = '26716999';
+    await visit('/bar');
 
-      return [
-        200,
-        headers,
-        responseBody
-      ];
-    });
-  });
+    assert.dom('#alert').doesNotExist('does not signal new version when not available');
 
-  visit('/bar');
+    await visit('/bar-new-version');
 
-  andThen(function() {
-    let alertBox = find('#alert');
-
-    assert.notOk(alertBox.length, 'does not signal new version when not available');
-
-    visit('/bar-new-version');
-  });
-
-  andThen(function() {
-    let alertBox = find('#alert');
-
-    assert.ok(alertBox.length, 'detects a new version is available');
+    assert.dom('#alert').exists('detects a new version is available');
   });
 });

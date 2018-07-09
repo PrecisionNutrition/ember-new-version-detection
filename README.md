@@ -1,4 +1,5 @@
-# ember-new-version-detection [![Build Status](https://travis-ci.org/PrecisionNutrition/ember-new-version-detection.svg?branch=master)](https://travis-ci.org/PrecisionNutrition/ember-new-version-detection)
+ember-new-version-detection [![Build Status](https://travis-ci.org/PrecisionNutrition/ember-new-version-detection.svg?branch=master)](https://travis-ci.org/PrecisionNutrition/ember-new-version-detection)
+==============================================================================
 
 **This is a highly opinionated add-on. It's incredibly specific to our needs at
 Precision Nutrition. We welcome pull requests to make this more flexible.**
@@ -17,16 +18,18 @@ And our API reports back:
 * `X-Current-Version`: the current version as understood by the API (we use
   ember-cli-deploy to manage this)
 
-## Installation
+Installation
+------------------------------------------------------------------------------
 
-* `ember install ember-new-version-detection`
+`ember install ember-new-version-detection`
 
-### Configuring your application
+Configuring your application
+----------------------------
 
 In your `config/environment.js` file you'll need to add a block like this:
 
 ```javascript
-var ENV = {
+const ENV = {
   // snip
 
   'ember-new-version-detection': {
@@ -37,7 +40,8 @@ var ENV = {
 };
 ```
 
-### Hooking up the detector
+Hooking up the detector
+-----------------------
 
 This step is really easy. It works for both ember-ajax, and ember-data. Here's
 an example using Ember Data:
