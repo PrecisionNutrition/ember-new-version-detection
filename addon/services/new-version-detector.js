@@ -1,10 +1,6 @@
+import { computed } from '@ember/object';
+import Service from '@ember/service';
 import config from 'ember-get-config';
-import Ember from 'ember';
-
-const {
-  computed,
-  Service,
-} = Ember;
 
 const {
   APP: {

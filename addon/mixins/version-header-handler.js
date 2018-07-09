@@ -1,4 +1,7 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { next as runNext } from '@ember/runloop';
+import Mixin from '@ember/object/mixin';
 import config from 'ember-get-config';
 
 const {
@@ -6,17 +9,6 @@ const {
     appName,
   },
 } = config;
-
-const {
-  computed,
-  inject: {
-    service,
-  },
-  run: {
-    next: runNext,
-  },
-  Mixin,
-} = Ember;
 
 function fetchHeader(header, headers) {
   return headers[header] || headers[header.toLowerCase()];
