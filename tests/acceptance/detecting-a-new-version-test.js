@@ -82,6 +82,8 @@ module('Acceptance | detecting a new version', function(hooks) {
   });
 
   test('via the ember-ajax service', async function(assert) {
+    assert.expect(4);
+
     server = new Pretender(function() {
       this.get('/foos', function(req) {
         let {

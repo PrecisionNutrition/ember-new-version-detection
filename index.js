@@ -23,7 +23,7 @@ function getVersion(shaLength, root) {
 }
 
 module.exports = {
-  name: 'ember-new-version-detection',
+  name: require('./package').name,
 
   config(env, baseConfig) {
     let config = this._super.config.apply(this, arguments);
