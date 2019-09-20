@@ -1,4 +1,4 @@
-ember-new-version-detection [![Build Status](https://travis-ci.org/PrecisionNutrition/ember-new-version-detection.svg?branch=master)](https://travis-ci.org/PrecisionNutrition/ember-new-version-detection)
+ember-new-version-detection [![CircleCI](https://circleci.com/gh/PrecisionNutrition/ember-new-version-detection.svg?style=svg)](https://circleci.com/gh/PrecisionNutrition/ember-new-version-detection)
 ==============================================================================
 
 **This is a highly opinionated add-on. It's incredibly specific to our needs at
