@@ -20,9 +20,7 @@ export default Service.extend({
   reportedVersion: computed('_rawVersion', function() {
     let rawVersion = this.get('_rawVersion');
 
-    if (rawVersion) {
-      return rawVersion.slice(6);
-    }
+    return rawVersion && rawVersion.slice(6);
   }),
 
   currentVersion: computed('_rawVersion', function() {
@@ -33,6 +31,8 @@ export default Service.extend({
       let trimmedSHA = fullSHA.slice(0, 7);
 
       return trimmedSHA;
+    } else {
+      return null;
     }
   }),
 
