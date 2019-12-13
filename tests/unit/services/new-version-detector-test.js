@@ -4,50 +4,46 @@ import { setupTest } from 'ember-qunit';
 module('Unit | Service | new version detector', function(hooks) {
   setupTest(hooks);
 
+  hooks.beforeEach(function() {
+    this.service = this.owner.lookup('service:new-version-detector');
+  });
+
   test('#reportedVersion', function(assert) {
-    let service = this.owner.lookup('service:new-version-detector');
+    this.service.set('_rawVersion', '0.0.0+079a4760');
 
-    service.set('_rawVersion', '0.0.0+079a4760');
-
-    let reportedVersion = service.get('reportedVersion');
+    let reportedVersion = this.service.reportedVersion;
 
     assert.equal(reportedVersion, '079a4760');
   });
 
   test('#currentVersion', function(assert) {
-    let service = this.owner.lookup('service:new-version-detector');
+    this.service.set('_rawVersion', '0.0.0+079a4760');
 
-    service.set('_rawVersion', '0.0.0+079a4760');
-
-    let currentVersion = service.get('currentVersion');
+    let currentVersion = this.service.currentVersion;
 
     assert.equal(currentVersion, '079a476');
   });
 
   test('it indicates when current version is newest available', function(assert) {
-    let service = this.owner.lookup('service:new-version-detector');
-
-    service.setProperties({
+    this.service.setProperties({
       _rawVersion: '0.0.0+079a4760',
       activeVersion: '079a476',
     });
 
-    assert.notOk(service.get('isUpgradeAvailable'));
+    assert.notOk(this.service.isUpgradeAvailable);
 
-    service.set('currentVersion', '2');
+    this.service.set('_rawVersion', '0.0.0+2');
 
-    assert.ok(service.get('isUpgradeAvailable'));
+    assert.ok(this.service.isUpgradeAvailable);
 
-    service.setProperties('activeVersion', '3');
+    this.service.setProperties('_rawVersion', '0.0.0+3');
 
-    assert.ok(service.get('isUpgradeAvailable'));
+    assert.ok(this.service.isUpgradeAvailable);
   });
 
   test('it is false when activeVersion is null', function(assert) {
-    let service = this.owner.lookup('service:new-version-detector');
+    this.service.set('_rawVersion', '3');
 
-    service.set('currentVersion', '3');
-
-    assert.notOk(service.get('isUpgradeAvailable'));
+    assert.notOk(this.service.isUpgradeAvailable);
   });
 });

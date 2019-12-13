@@ -1,5 +1,7 @@
-import { computed } from '@ember/object';
 import Service from '@ember/service';
+
+import { computed } from '@ember/object';
+
 import config from 'ember-get-config';
 
 const {
@@ -8,23 +10,22 @@ const {
   }
 } = config;
 
-export default Service.extend({
+export default class NewVersionDetector extends Service {
   // activeVersion (optional): string -- the version currently active, as reported by the API
+  activeVersion = null;
 
-  init() {
-    this._super(...arguments);
+  _rawVersion = version;
 
-    this.set('_rawVersion', version);
-  },
-
-  reportedVersion: computed('_rawVersion', function() {
-    let rawVersion = this.get('_rawVersion');
+  @computed('_rawVersion')
+  get reportedVersion() {
+    let rawVersion = this._rawVersion;
 
     return rawVersion && rawVersion.slice(6);
-  }),
+  }
 
-  currentVersion: computed('_rawVersion', function() {
-    let rawVersion = this.get('_rawVersion');
+  @computed('_rawVersion')
+  get currentVersion() {
+    let rawVersion = this._rawVersion;
 
     if (rawVersion) {
       let fullSHA = rawVersion.slice(6);
@@ -34,14 +35,15 @@ export default Service.extend({
     } else {
       return null;
     }
-  }),
+  }
 
-  isUpgradeAvailable: computed('currentVersion', 'activeVersion', function() {
+  @computed('currentVersion', 'activeVersion')
+  get isUpgradeAvailable() {
     let {
       currentVersion,
       activeVersion,
-    } = this.getProperties('currentVersion', 'activeVersion');
+    } = this;
 
     return currentVersion && activeVersion && currentVersion !== activeVersion;
-  }),
-});
+  }
+}

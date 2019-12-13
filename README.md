@@ -43,25 +43,16 @@ const ENV = {
 Hooking up the detector
 -----------------------
 
-This step is really easy. It works for both ember-ajax, and ember-data. Here's
-an example using Ember Data:
-
 ```javascript
 // app/adapters/application.js
 
-import RestAdapter from 'ember-data/adapters/rest';
-import VersionHeaderHandler from 'ember-new-version-detection/mixins/version-header-handler';
+import VersionDetectingJsonApiAdapter from 'ember-new-version-detection/adapter/json-api';
 
-export default RestAdapter.extend(VersionHeaderHandler, {
+export default class MyAdapter extends VersionDetectingJsonApiAdapter {
   // snip
-});
+};
 ```
 
-Done! You could mix this into your ember-ajax service using the same approach.
+### Help! I Don't Use JSON:API!
 
-## Possible Gotchas
-
-### I'm already overriding headers in my adapter/ajax service!
-
-That's okay, we can fix this by calling `this._super(...arguments)` in your
-adapter/ajax service.
+The implementation of the adapter is pretty straightforward. Just copy and paste from our code.

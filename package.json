@@ -34,7 +34,6 @@
     "@ember/optional-features": "^1.0.0",
     "babel-eslint": "^10.0.3",
     "broccoli-asset-rev": "^3.0.0",
-    "ember-ajax": "^5.0.0",
     "ember-auto-import": "^1.5.2",
     "ember-cli": "~3.14.0",
     "ember-cli-dependency-checker": "^3.1.0",
