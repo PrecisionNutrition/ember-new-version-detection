@@ -3977,6 +3977,7 @@ class-utils@^0.3.5:
 clean-base-url@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/clean-base-url/-/clean-base-url-1.0.0.tgz#c901cf0a20b972435b0eccd52d056824a4351b7b"
+  integrity sha1-yQHPCiC5ckNbDszVLQVoJKQ1G3s=
 
 clean-css-promise@^0.1.0:
   version "0.1.1"
@@ -4887,12 +4888,12 @@ ember-cli-htmlbars@^4.0.5:
     walk-sync "^2.0.2"
 
 ember-cli-inject-live-reload@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-inject-live-reload/-/ember-cli-inject-live-reload-2.0.1.tgz#1bf3a6ea1747bceddc9f62f7ca8575de6b53ddaf"
-  integrity sha512-vrW/3KSrku+Prqmp7ZkpCxYkabnLrTHDEvV9B1yphTP++dhiV7n7Dv9NrmyubkoF3Inm0xrbbhB5mScvvuTQSg==
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-inject-live-reload/-/ember-cli-inject-live-reload-2.0.2.tgz#95edb543b386239d35959e5ea9579f5382976ac7"
+  integrity sha512-HDD6o/kBHT/kUtazklU0OW23q2jigIN42QmcpFdXUSvJ2/2SYA6yIqSUxWfJgISmtn5gTNZ2KPq1p3dLkhJxSQ==
   dependencies:
     clean-base-url "^1.0.0"
-    ember-cli-version-checker "^2.1.2"
+    ember-cli-version-checker "^3.1.3"
 
 ember-cli-is-package-missing@^1.0.0:
   version "1.0.0"
@@ -4971,7 +4972,7 @@ ember-cli-uglify@^3.0.0:
     broccoli-uglify-sourcemap "^3.1.0"
     lodash.defaultsdeep "^4.6.0"
 
-ember-cli-version-checker@^2.0.0:
+ember-cli-version-checker@^2.0.0, ember-cli-version-checker@^2.1.2:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-2.2.0.tgz#47771b731fe0962705e27c8199a9e3825709f3b3"
   integrity sha512-G+KtYIVlSOWGcNaTFHk76xR4GdzDLzAS4uxZUKdASuFX0KJE43C6DaqL+y3VTpUFLI2FIkAS6HZ4I1YBi+S3hg==
@@ -4979,7 +4980,7 @@ ember-cli-version-checker@^2.0.0:
     resolve "^1.3.3"
     semver "^5.3.0"
 
-ember-cli-version-checker@^2.1.1, ember-cli-version-checker@^2.1.2:
+ember-cli-version-checker@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-2.1.2.tgz#305ce102390c66e4e0f1432dea9dc5c7c19fed98"
   dependencies:
@@ -9534,10 +9535,17 @@ resolve@^1.1.6:
   dependencies:
     path-parse "^1.0.5"
 
-resolve@^1.10.0, resolve@^1.10.1, resolve@^1.11.1, resolve@^1.12.0, resolve@^1.3.2, resolve@^1.3.3, resolve@^1.4.0, resolve@^1.8.1:
+resolve@^1.10.0, resolve@^1.10.1, resolve@^1.11.1, resolve@^1.12.0, resolve@^1.3.2, resolve@^1.4.0, resolve@^1.8.1:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.12.0.tgz#3fc644a35c84a48554609ff26ec52b66fa577df6"
   integrity sha512-B/dOmuoAik5bKcD6s6nXDCjzUKnaDvdkRyAk6rsmsKLipWj4797iothd7jmmUhWTfinVMU+wc56rYKsit2Qy4w==
+  dependencies:
+    path-parse "^1.0.6"
+
+resolve@^1.3.3, resolve@^1.7.1:
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.13.1.tgz#be0aa4c06acd53083505abb35f4d66932ab35d16"
+  integrity sha512-CxqObCX8K8YtAhOBRg+lrcdn+LK+WYOS8tSjqSFbjtrI5PnS63QPhZl4+yKfrU9tdsbMu9Anr/amegT87M9Z6w==
   dependencies:
     path-parse "^1.0.6"
 
@@ -9546,13 +9554,6 @@ resolve@^1.5.0:
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.8.1.tgz#82f1ec19a423ac1fbd080b0bab06ba36e84a7a26"
   dependencies:
     path-parse "^1.0.5"
-
-resolve@^1.7.1:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.13.1.tgz#be0aa4c06acd53083505abb35f4d66932ab35d16"
-  integrity sha512-CxqObCX8K8YtAhOBRg+lrcdn+LK+WYOS8tSjqSFbjtrI5PnS63QPhZl4+yKfrU9tdsbMu9Anr/amegT87M9Z6w==
-  dependencies:
-    path-parse "^1.0.6"
 
 responselike@1.0.2:
   version "1.0.2"
