@@ -1,10 +1,8 @@
-import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
+import fetch from 'fetch';
 
-export default Route.extend({
-  ajax: service(),
-
+export default class BarNewVersion extends Route {
   model() {
-    return this.get('ajax').request('/foos/1');
-  },
-});
+    return fetch('/foos/1');
+  }
+}

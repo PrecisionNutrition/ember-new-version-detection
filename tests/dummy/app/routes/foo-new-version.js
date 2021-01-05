@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default class FooNewVersion extends Route {
   model() {
-    return this.get('store').findRecord('foo', 1);
-  },
-});
+    return this.store.findRecord('foo', 1);
+  }
+}
