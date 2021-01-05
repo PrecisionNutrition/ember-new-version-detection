@@ -5,9 +5,7 @@ import { computed } from '@ember/object';
 import config from 'ember-get-config';
 
 const {
-  APP: {
-    _appVersion: version,
-  }
+  APP: { _appVersion: version },
 } = config;
 
 export default class NewVersionDetector extends Service {
@@ -39,10 +37,7 @@ export default class NewVersionDetector extends Service {
 
   @computed('currentVersion', 'activeVersion')
   get isUpgradeAvailable() {
-    let {
-      currentVersion,
-      activeVersion,
-    } = this;
+    let { currentVersion, activeVersion } = this;
 
     return currentVersion && activeVersion && currentVersion !== activeVersion;
   }

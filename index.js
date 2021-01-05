@@ -5,7 +5,7 @@ const gitRepoInfo = require('git-repo-info');
 
 function getVersion(shaLength, root) {
   let projectPath = root || process.cwd();
-  let packageVersion  = require(path.join(projectPath, 'package.json')).version;
+  let packageVersion = require(path.join(projectPath, 'package.json')).version;
   let info = gitRepoInfo(projectPath);
 
   let sha = info.sha || '';

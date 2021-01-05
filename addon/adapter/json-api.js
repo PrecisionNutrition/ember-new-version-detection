@@ -11,9 +11,7 @@ import fetchHeader from '../utils/fetch-header';
 import config from 'ember-get-config';
 
 const {
-  'ember-new-version-detection': {
-    appName,
-  },
+  'ember-new-version-detection': { appName },
 } = config;
 
 export default class VersionDetectingJsonApiAdapter extends JSONAPIAdapter {
@@ -28,7 +26,7 @@ export default class VersionDetectingJsonApiAdapter extends JSONAPIAdapter {
   }
 
   handleResponse(_, headers) {
-    runNext(this, function() {
+    runNext(this, function () {
       this.set('newVersionDetector.activeVersion', fetchHeader('X-Current-Version', headers));
     });
 

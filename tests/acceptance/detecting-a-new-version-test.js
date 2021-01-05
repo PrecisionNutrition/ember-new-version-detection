@@ -4,10 +4,10 @@ import { setupApplicationTest } from 'ember-qunit';
 import Pretender from 'pretender';
 import env from '../../config/environment';
 
-module('Acceptance | detecting a new version', function(hooks) {
+module('Acceptance | detecting a new version', function (hooks) {
   setupApplicationTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.headers = {
       'Content-Type': 'application/vnd.api+json',
     };
@@ -25,7 +25,7 @@ module('Acceptance | detecting a new version', function(hooks) {
     this.server;
   });
 
-  hooks.afterEach(function() {
+  hooks.afterEach(function () {
     this.headers = null;
 
     this.responseBody = null;
@@ -35,14 +35,12 @@ module('Acceptance | detecting a new version', function(hooks) {
     this.server = null;
   });
 
-  test('via the ember-data adapter', async function(assert) {
+  test('via the ember-data adapter', async function (assert) {
     const { headers, responseBody } = this;
 
-    this.server = new Pretender(function() {
-      this.get('/foos', function(req) {
-        let {
-          requestHeaders,
-        } = req;
+    this.server = new Pretender(function () {
+      this.get('/foos', function (req) {
+        let { requestHeaders } = req;
 
         assert.equal(
           requestHeaders['X-App-Name'],
@@ -50,26 +48,15 @@ module('Acceptance | detecting a new version', function(hooks) {
           'reports the app name to the server'
         );
 
-        assert.ok(
-          'X-App-Version' in requestHeaders,
-          'reports the app version to the server'
-        );
+        assert.ok('X-App-Version' in requestHeaders, 'reports the app version to the server');
 
-        return [
-          200,
-          headers,
-          responseBody
-        ];
+        return [200, headers, responseBody];
       });
 
-      this.get('/foos/1', function() {
+      this.get('/foos/1', function () {
         headers['X-Current-Version'] = '26716999';
 
-        return [
-          200,
-          headers,
-          responseBody
-        ];
+        return [200, headers, responseBody];
       });
     });
 
