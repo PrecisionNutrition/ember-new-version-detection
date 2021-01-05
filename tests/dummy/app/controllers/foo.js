@@ -1,6 +1,6 @@
-import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
 
-export default Controller.extend({
-  newVersionDetector: service(),
-});
+export default class extends Controller {
+  @service newVersionDetector;
+}

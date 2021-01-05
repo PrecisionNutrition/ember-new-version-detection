@@ -16,18 +16,16 @@ export default class NewVersionDetector extends Service {
 
   @computed('_rawVersion')
   get reportedVersion() {
-    let rawVersion = this._rawVersion;
-
-    return rawVersion && rawVersion.slice(6);
+    return this._rawVersion?.slice(6);
   }
 
   @computed('_rawVersion')
   get currentVersion() {
-    let rawVersion = this._rawVersion;
+    const rawVersion = this._rawVersion;
 
     if (rawVersion) {
-      let fullSHA = rawVersion.slice(6);
-      let trimmedSHA = fullSHA.slice(0, 7);
+      const fullSHA = rawVersion.slice(6);
+      const trimmedSHA = fullSHA.slice(0, 7);
 
       return trimmedSHA;
     } else {
@@ -37,7 +35,7 @@ export default class NewVersionDetector extends Service {
 
   @computed('currentVersion', 'activeVersion')
   get isUpgradeAvailable() {
-    let { currentVersion, activeVersion } = this;
+    const { currentVersion, activeVersion } = this;
 
     return currentVersion && activeVersion && currentVersion !== activeVersion;
   }
