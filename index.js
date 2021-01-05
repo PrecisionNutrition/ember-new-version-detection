@@ -25,7 +25,7 @@ function getVersion(shaLength, root) {
 module.exports = {
   name: require('./package').name,
 
-  config(env, baseConfig) {
+  config(_, baseConfig) {
     let config = this._super.config.apply(this, arguments);
 
     let version = getVersion(null, this.project.root);
@@ -38,5 +38,9 @@ module.exports = {
     }
 
     return config;
+  },
+
+  included() {
+    this.eachAddonInvoke('included', arguments);
   },
 };
