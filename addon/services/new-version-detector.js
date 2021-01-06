@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 
-import { tracked } from 'tracked-built-ins';
+import { tracked } from '@glimmer/tracking';
 
 import config from 'ember-get-config';
 
@@ -13,8 +13,9 @@ export default class NewVersionDetector extends Service {
   @tracked
   activeVersion = null;
 
-  // ignoredVersions (optional): string[] -- versions the user doesn't care about, perhaps they just want to get on with their life
-  ignoredVersions = tracked([]);
+  // ignoredVersions (optional): string -- version the user doesn't care about, perhaps they just want to get on with their life
+  @tracked
+  ignoredVersion = null;
 
   // Version as reported by the app build
   @tracked
@@ -38,13 +39,13 @@ export default class NewVersionDetector extends Service {
   }
 
   get isUpgradeAvailable() {
-    const { activeVersion, currentVersion, ignoredVersions } = this;
+    const { activeVersion, currentVersion, ignoredVersion } = this;
 
     return (
       currentVersion &&
       activeVersion &&
       currentVersion !== activeVersion &&
-      !ignoredVersions.includes(activeVersion)
+      ignoredVersion !== activeVersion
     );
   }
 
@@ -52,8 +53,6 @@ export default class NewVersionDetector extends Service {
    * Ignores the current upgrade. Subsequent upgrades will not be ignored.
    */
   ignoreThisUpgrade() {
-    const { activeVersion } = this;
-
-    this.ignoredVersions.push(activeVersion);
+    this.ignoredVersion = this.activeVersion;
   }
 }

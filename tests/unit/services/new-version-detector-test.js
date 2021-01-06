@@ -60,7 +60,7 @@ module('Unit | Service | new version detector', function (hooks) {
 
       assert.notOk(this.service.isUpgradeAvailable);
 
-      assert.deepEqual(this.service.ignoredVersions, ['2'], 'retains a list of ignored versions');
+      assert.equal(this.service.ignoredVersion, '2', 'marks active version as ignored');
 
       this.service.activeVersion = '3';
 
@@ -70,11 +70,7 @@ module('Unit | Service | new version detector', function (hooks) {
 
       assert.notOk(this.service.isUpgradeAvailable);
 
-      assert.deepEqual(
-        this.service.ignoredVersions,
-        ['2', '3'],
-        'appends to the list of ignored versions'
-      );
+      assert.equal(this.service.ignoredVersion, '3', 'marks new active version as ignored');
     });
   });
 });

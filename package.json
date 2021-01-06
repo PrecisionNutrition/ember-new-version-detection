@@ -29,8 +29,7 @@
     "ember-cli-babel": "^7.22.1",
     "ember-cli-htmlbars": "^5.3.1",
     "ember-get-config": "^0.3.0",
-    "git-repo-info": "^2.1.0",
-    "tracked-built-ins": "^1.0.2"
+    "git-repo-info": "^2.1.0"
   },
   "devDependencies": {
     "@ember/jquery": "^1.1.0",
