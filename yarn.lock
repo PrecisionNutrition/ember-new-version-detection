@@ -11632,6 +11632,11 @@ qunit-dom@^1.5.0:
     ember-cli-babel "^7.23.0"
     ember-cli-version-checker "^5.1.1"
 
+qunit-wait-for@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/qunit-wait-for/-/qunit-wait-for-2.0.0.tgz#f90f4a1c554bf8405222b5a361063747b23f023f"
+  integrity sha512-ASDc/Xlx0QxrBRX2j1/PBLJVw0HW/I6DYL6ipmLy3r5X8uP0pYLNxPq7cU7iGg0ZOCriB7OUi4If2M9XGUxmsw==
+
 qunit@^2.9.3:
   version "2.9.3"
   resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.9.3.tgz#9522a088e76f0782f70a45db92f2fd14db311bcc"

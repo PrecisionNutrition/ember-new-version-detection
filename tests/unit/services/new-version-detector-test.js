@@ -9,7 +9,7 @@ module('Unit | Service | new version detector', function (hooks) {
   });
 
   test('#reportedVersion', function (assert) {
-    this.service.set('_rawVersion', '0.0.0+079a4760');
+    this.service._rawVersion = '0.0.0+079a4760';
 
     let reportedVersion = this.service.reportedVersion;
 
@@ -17,7 +17,7 @@ module('Unit | Service | new version detector', function (hooks) {
   });
 
   test('#currentVersion', function (assert) {
-    this.service.set('_rawVersion', '0.0.0+079a4760');
+    this.service._rawVersion = '0.0.0+079a4760';
 
     let currentVersion = this.service.currentVersion;
 
@@ -25,25 +25,52 @@ module('Unit | Service | new version detector', function (hooks) {
   });
 
   test('it indicates when current version is newest available', function (assert) {
-    this.service.setProperties({
-      _rawVersion: '0.0.0+079a4760',
-      activeVersion: '079a476',
-    });
+    this.service._rawVersion = '0.0.0+079a4760';
+    this.service.activeVersion = '079a476';
 
     assert.notOk(this.service.isUpgradeAvailable);
 
-    this.service.set('_rawVersion', '0.0.0+2');
+    this.service._rawVersion = '0.0.0+2';
 
     assert.ok(this.service.isUpgradeAvailable);
 
-    this.service.setProperties('_rawVersion', '0.0.0+3');
+    this.service._rawVersion = '0.0.0+3';
 
     assert.ok(this.service.isUpgradeAvailable);
   });
 
   test('it is false when activeVersion is null', function (assert) {
-    this.service.set('_rawVersion', '3');
+    this.service._rawVersion = '3';
 
     assert.notOk(this.service.isUpgradeAvailable);
+  });
+
+  module('#ignoreThisUpgrade', function (hooks) {
+    hooks.beforeEach(function () {
+      this.service._rawVersion = '0.0.0+079a4760';
+      this.service.activeVersion = '079a476';
+    });
+
+    test('when upgrade is available', function (assert) {
+      this.service.activeVersion = '2';
+
+      assert.ok(this.service.isUpgradeAvailable);
+
+      this.service.ignoreThisUpgrade();
+
+      assert.notOk(this.service.isUpgradeAvailable);
+
+      assert.equal(this.service.ignoredVersion, '2', 'marks active version as ignored');
+
+      this.service.activeVersion = '3';
+
+      assert.ok(this.service.isUpgradeAvailable);
+
+      this.service.ignoreThisUpgrade();
+
+      assert.notOk(this.service.isUpgradeAvailable);
+
+      assert.equal(this.service.ignoredVersion, '3', 'marks new active version as ignored');
+    });
   });
 });
