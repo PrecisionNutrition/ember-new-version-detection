@@ -44,4 +44,37 @@ module('Unit | Service | new version detector', function (hooks) {
 
     assert.notOk(this.service.isUpgradeAvailable);
   });
+
+  module('#ignoreThisUpgrade', function (hooks) {
+    hooks.beforeEach(function () {
+      this.service._rawVersion = '0.0.0+079a4760';
+      this.service.activeVersion = '079a476';
+    });
+
+    test('when upgrade is available', function (assert) {
+      this.service.activeVersion = '2';
+
+      assert.ok(this.service.isUpgradeAvailable);
+
+      this.service.ignoreThisUpgrade();
+
+      assert.notOk(this.service.isUpgradeAvailable);
+
+      assert.deepEqual(this.service.ignoredVersions, ['2'], 'retains a list of ignored versions');
+
+      this.service.activeVersion = '3';
+
+      assert.ok(this.service.isUpgradeAvailable);
+
+      this.service.ignoreThisUpgrade();
+
+      assert.notOk(this.service.isUpgradeAvailable);
+
+      assert.deepEqual(
+        this.service.ignoredVersions,
+        ['2', '3'],
+        'appends to the list of ignored versions'
+      );
+    });
+  });
 });

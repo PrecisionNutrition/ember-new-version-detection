@@ -49,6 +49,14 @@ export default class MyAdapter extends VersionDetectingJsonApiAdapter {
 }
 ```
 
+### I want to ignore an upgrade
+
+Not a problem. Example:
+
+```javascript
+this.newVersionDetector.ignoreThisUpgrade();
+```
+
 ### Help! I Don't Use JSON:API!
 
 The implementation of the adapter is pretty straightforward. Just copy and paste from our code.
