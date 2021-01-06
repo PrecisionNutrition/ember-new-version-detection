@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 
-import { computed } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 import config from 'ember-get-config';
 
@@ -10,16 +10,16 @@ const {
 
 export default class NewVersionDetector extends Service {
   // activeVersion (optional): string -- the version currently active, as reported by the API
+  @tracked
   activeVersion = null;
 
+  @tracked
   _rawVersion = version;
 
-  @computed('_rawVersion')
   get reportedVersion() {
     return this._rawVersion?.slice(6);
   }
 
-  @computed('_rawVersion')
   get currentVersion() {
     const rawVersion = this._rawVersion;
 
@@ -33,7 +33,6 @@ export default class NewVersionDetector extends Service {
     }
   }
 
-  @computed('currentVersion', 'activeVersion')
   get isUpgradeAvailable() {
     const { currentVersion, activeVersion } = this;
 
