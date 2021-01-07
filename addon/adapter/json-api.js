@@ -27,7 +27,7 @@ export default class VersionDetectingJsonApiAdapter extends JSONAPIAdapter {
 
   handleResponse(_, headers) {
     runNext(this, function () {
-      this.newVersionDetector.activeVersion = fetchHeader('X-Current-Version', headers);
+      this.newVersionDetector.set('activeVersion', fetchHeader('X-Current-Version', headers));
     });
 
     return super.handleResponse(...arguments);
