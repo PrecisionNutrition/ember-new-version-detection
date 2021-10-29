@@ -1,12 +1,25 @@
 import Service from '@ember/service';
+import { getOwner } from '@ember/application';
 import { tracked } from '@glimmer/tracking';
-import config from 'ember-get-config';
-
-const {
-  APP: { _appVersion: version },
-} = config;
 
 export default class NewVersionDetector extends Service {
+  get _appConfig() {
+    const config = getOwner(this).resolveRegistration('config:environment');
+    return config;
+  }
+
+  // Version as reported by the app build
+  get _rawVersion() {
+    return this._appConfig.APP._appVersion;
+  }
+
+  /**
+   * Configured name of the host application
+   */
+  get appName() {
+    return this._appConfig['ember-new-version-detection'].appName;
+  }
+
   // activeVersion (optional): string -- the version currently active, as reported by the API
   @tracked
   activeVersion = null;
@@ -14,9 +27,6 @@ export default class NewVersionDetector extends Service {
   // ignoredVersions (optional): string -- version the user doesn't care about, perhaps they just want to get on with their life
   @tracked
   ignoredVersion = null;
-
-  // Version as reported by the app build
-  _rawVersion = version;
 
   get reportedVersion() {
     return this._rawVersion?.slice(6);
@@ -38,7 +48,7 @@ export default class NewVersionDetector extends Service {
   get isUpgradeAvailable() {
     const { activeVersion, currentVersion, ignoredVersion } = this;
 
-    return (
+    return !!(
       currentVersion &&
       activeVersion &&
       currentVersion !== activeVersion &&

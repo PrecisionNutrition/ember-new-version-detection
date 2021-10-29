@@ -30,7 +30,6 @@
   "dependencies": {
     "ember-cli-babel": "^7.26.6",
     "ember-cli-htmlbars": "^5.7.1",
-    "ember-get-config": "^0.3.0",
     "git-repo-info": "^2.1.0"
   },
   "devDependencies": {
@@ -58,6 +57,8 @@
     "ember-page-title": "^6.2.2",
     "ember-qunit": "^5.1.4",
     "ember-resolver": "^8.0.2",
+    "ember-sinon": "^5.0.0",
+    "ember-sinon-qunit": "^6.0.0",
     "ember-source": "~3.28.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^3.6.0",

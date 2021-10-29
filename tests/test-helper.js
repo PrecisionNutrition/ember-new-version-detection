@@ -5,10 +5,13 @@ import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';
 import { start } from 'ember-qunit';
 import { installWaitFor } from 'qunit-wait-for';
+import setupSinon from 'ember-sinon-qunit';
 
 installWaitFor(QUnit);
 
 setApplication(Application.create(config.APP));
+
+setupSinon();
 
 setup(QUnit.assert);
 

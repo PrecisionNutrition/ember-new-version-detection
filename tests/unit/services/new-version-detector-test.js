@@ -1,5 +1,6 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
+import sinon from 'sinon';
 
 module('Unit | Service | new version detector', function (hooks) {
   setupTest(hooks);
@@ -7,7 +8,7 @@ module('Unit | Service | new version detector', function (hooks) {
   hooks.beforeEach(function () {
     this.service = this.owner.lookup('service:new-version-detector');
 
-    this.service.set('_rawVersion', '0.0.0+079a4760');
+    sinon.stub(this.service, '_rawVersion').value('0.0.0+079a4760');
   });
 
   test('#reportedVersion', function (assert) {
@@ -23,49 +24,49 @@ module('Unit | Service | new version detector', function (hooks) {
   });
 
   test('it indicates when current version is newest available', function (assert) {
-    this.service.set('activeVersion', '079a476');
+    this.service.activeVersion = '079a476';
 
-    assert.notOk(this.service.isUpgradeAvailable);
+    assert.false(this.service.isUpgradeAvailable);
 
-    this.service.set('_rawVersion', '0.0.0+2');
+    sinon.stub(this.service, '_rawVersion').value('0.0.0+2');
 
-    assert.ok(this.service.isUpgradeAvailable);
+    assert.true(this.service.isUpgradeAvailable);
 
-    this.service.set('_rawVersion', '0.0.0+3');
+    sinon.stub(this.service, '_rawVersion').value('0.0.0+3');
 
-    assert.ok(this.service.isUpgradeAvailable);
+    assert.true(this.service.isUpgradeAvailable);
   });
 
   test('it is false when activeVersion is null', function (assert) {
-    this.service.set('_rawVersion', '3');
+    sinon.stub(this.service, '_rawVersion').value('3');
 
-    assert.notOk(this.service.isUpgradeAvailable);
+    assert.false(this.service.isUpgradeAvailable);
   });
 
   module('#ignoreThisUpgrade', function (hooks) {
     hooks.beforeEach(function () {
-      this.service.set('_rawVersion', '0.0.0+079a4760');
-      this.service.set('activeVersion', '079a476');
+      sinon.stub(this.service, '_rawVersion').value('0.0.0+079a4760');
+      this.service.activeVersion = '079a476';
     });
 
     test('when upgrade is available', function (assert) {
-      this.service.set('activeVersion', '2');
+      this.service.activeVersion = '2';
 
-      assert.ok(this.service.isUpgradeAvailable);
+      assert.true(this.service.isUpgradeAvailable);
 
       this.service.ignoreThisUpgrade();
 
-      assert.notOk(this.service.isUpgradeAvailable);
+      assert.false(this.service.isUpgradeAvailable);
 
       assert.equal(this.service.ignoredVersion, '2', 'marks active version as ignored');
 
-      this.service.set('activeVersion', '3');
+      this.service.activeVersion = '3';
 
-      assert.ok(this.service.isUpgradeAvailable);
+      assert.true(this.service.isUpgradeAvailable);
 
       this.service.ignoreThisUpgrade();
 
-      assert.notOk(this.service.isUpgradeAvailable);
+      assert.false(this.service.isUpgradeAvailable);
 
       assert.equal(this.service.ignoredVersion, '3', 'marks new active version as ignored');
     });
