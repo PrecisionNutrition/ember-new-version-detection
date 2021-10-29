@@ -17,6 +17,12 @@ And our API reports back:
 - `X-Current-Version`: the current version as understood by the API (we use
   ember-cli-deploy to manage this)
 
+## Compatibility
+
+- Ember.js v3.20 or above
+- Ember CLI v3.20 or above
+- Node.js v12 or above
+
 ## Installation
 
 `ember install ember-new-version-detection`
