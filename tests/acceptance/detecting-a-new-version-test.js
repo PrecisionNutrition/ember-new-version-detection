@@ -36,13 +36,15 @@ module('Acceptance | detecting a new version', function (hooks) {
   });
 
   test('via the ember-data adapter', async function (assert) {
+    assert.expect(4);
+
     const { headers, responseBody } = this;
 
     this.server = new Pretender(function () {
       this.get('/foos', function (req) {
         let { requestHeaders } = req;
 
-        assert.equal(
+        assert.strictEqual(
           requestHeaders['X-App-Name'],
           env['ember-new-version-detection'].appName,
           'reports the app name to the server'
@@ -70,6 +72,8 @@ module('Acceptance | detecting a new version', function (hooks) {
   });
 
   test('ignoring a version', async function (assert) {
+    assert.expect(6);
+
     const { headers, responseBody } = this;
 
     const service = this.owner.lookup('service:new-version-detector');
@@ -78,7 +82,7 @@ module('Acceptance | detecting a new version', function (hooks) {
       this.get('/foos', function (req) {
         const { requestHeaders } = req;
 
-        assert.equal(
+        assert.strictEqual(
           requestHeaders['X-App-Name'],
           env['ember-new-version-detection'].appName,
           'reports the app name to the server'

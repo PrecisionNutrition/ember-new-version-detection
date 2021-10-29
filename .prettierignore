@@ -1,3 +1,7 @@
+# unconventional js
+/blueprints/*/files/
+/vendor/
+
 # compiled output
 /dist/
 /tmp/
@@ -7,16 +11,9 @@
 /node_modules/
 
 # misc
-/.circleci/
-/.env*
-/.pnp*
-/.sass-cache
-/connect.lock
 /coverage/
-/libpeerconnection.log
-/npm-debug.log*
-/testem.log
-/yarn-error.log
+!.*
+.eslintcache
 
 # ember-try
 /.node_modules.ember-try/
@@ -24,6 +21,3 @@
 /package.json.ember-try
 
 /**/*.hbs
-/**/*.html
-/jsconfig.json
-/package.json
