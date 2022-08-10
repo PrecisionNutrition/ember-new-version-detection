@@ -20,12 +20,9 @@ export default class VersionDetectingJsonApiAdapter extends JSONAPIAdapter {
     };
   }
 
-  handleResponse(
-    status: number,
-    headers: Record<string, unknown>,
-    payload: Record<string, unknown>,
-    requestData: Record<string, unknown>
-  ): Record<string, unknown> {
+  // NOTE: keeps us consistent with upstream types
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  handleResponse(status: number, headers: {}, payload: {}, requestData: {}): {} {
     runNext(this, () => {
       const activeVersion = fetchHeader('X-Current-Version', headers);
       this.newVersionDetector.activeVersion = activeVersion;
