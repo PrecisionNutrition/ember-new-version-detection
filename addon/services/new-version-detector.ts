@@ -2,7 +2,7 @@ import Service from '@ember/service';
 import { assert } from '@ember/debug';
 import { getOwner } from '@ember/application';
 import { tracked } from '@glimmer/tracking';
-import type ApplicationInstance from '@ember/application/instance';
+import ApplicationInstance from '@ember/application/instance';
 
 interface PartialAppConfig {
   APP: {
