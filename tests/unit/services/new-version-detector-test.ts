@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import sinon from 'sinon';
-import { TestContext } from 'ember-test-helpers';
+import type { TestContext } from '@ember/test-helpers';
 import type NewVersionDetector from 'ember-new-version-detection/services/new-version-detector';
 
 interface Context extends TestContext {
