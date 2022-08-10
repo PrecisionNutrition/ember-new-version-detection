@@ -20,13 +20,13 @@ module('Unit | Service | new version detector', function (hooks) {
   test('#reportedVersion', function (this: Context, assert) {
     const reportedVersion = this.service.reportedVersion;
 
-    assert.equal(reportedVersion, '079a4760');
+    assert.strictEqual(reportedVersion, '079a4760');
   });
 
   test('#currentVersion', function (this: Context, assert) {
     const currentVersion = this.service.currentVersion;
 
-    assert.equal(currentVersion, '079a476');
+    assert.strictEqual(currentVersion, '079a476');
   });
 
   test('it indicates when current version is newest available', function (this: Context, assert) {
@@ -64,7 +64,7 @@ module('Unit | Service | new version detector', function (hooks) {
 
       assert.false(this.service.isUpgradeAvailable);
 
-      assert.equal(this.service.ignoredVersion, '2', 'marks active version as ignored');
+      assert.strictEqual(this.service.ignoredVersion, '2', 'marks active version as ignored');
 
       this.service.activeVersion = '3';
 
@@ -74,7 +74,7 @@ module('Unit | Service | new version detector', function (hooks) {
 
       assert.false(this.service.isUpgradeAvailable);
 
-      assert.equal(this.service.ignoredVersion, '3', 'marks new active version as ignored');
+      assert.strictEqual(this.service.ignoredVersion, '3', 'marks new active version as ignored');
     });
   });
 });
