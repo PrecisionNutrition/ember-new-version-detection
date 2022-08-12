@@ -25,7 +25,8 @@
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each",
     "prepack": "ember ts:precompile",
-    "postpack": "ember ts:clean"
+    "postpack": "ember ts:clean",
+    "prepare": "husky install"
   },
   "bugs": "https://github.com/PrecisionNutrition/ember-new-version-detection/issues",
   "homepage": "https://github.com/PrecisionNutrition/ember-new-version-detection",
@@ -103,7 +104,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-qunit": "^7.2.0",
-    "husky": "^4.3.6",
+    "husky": "^8.0.0",
     "lint-staged": "13.0.3",
     "loader.js": "^4.7.0",
     "npm-run-all": "^4.1.5",
@@ -125,11 +126,6 @@
     "configPath": "tests/dummy/config"
   },
   "prettier": "@precision-nutrition/prettier-config",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "**/*.{css,md,yml}": [
       "prettier --write"

@@ -49,6 +49,7 @@ module.exports = {
         './testem.js',
         './blueprints/*/index.js',
         './config/**/*.js',
+        './scripts/**/*.js',
         './tests/dummy/config/**/*.js',
       ],
       excludedFiles: ['addon/**', 'addon-test-support/**', 'app/**', 'tests/dummy/app/**'],
